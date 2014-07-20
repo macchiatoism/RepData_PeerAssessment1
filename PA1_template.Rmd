@@ -79,7 +79,7 @@ data$Days[k] = "Weekend" # change to weekend
 data$Days[!k] = "Weekday" # then change to weekday
 
 dataWeekEnd<- data[data$Days == "Weekend", ] #copy each data
-dataWeekDay<- data[data$Days == "Weekday", ]
+dataWeekDay<- data[data$Days == "Weekday", ] #copy each data
 
 IntervalLevelWeekDays <- as.numeric(levels(as.factor(dataWeekDay$interval))) # level the interval of each data group
 IntervalLevelWeekEnd <- as.numeric(levels(as.factor(dataWeekEnd$interval)))
