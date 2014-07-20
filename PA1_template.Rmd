@@ -73,7 +73,7 @@ totalStepsPerDayWithoutNA
 ```{r}
 data$Days <- weekdays(as.Date(as.character(data$date)))
 
-k <- data$Days=="Saturday" | data$Days=="Sunday" 
+k <- data$Days=="Samstag" | data$Days=="Sontag" #my R locale is in German
 
 data$Days[k] = "Weekend" # change to weekend
 data$Days[!k] = "Weekday" # then change to weekday
@@ -92,7 +92,7 @@ dfWeekEnd <- cbind.data.frame(avgStepWeekEnd,IntervalLevelWeekEnd)
 
 ```
 * Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
-```{r}
+```{r, fig.keep='last'}
 plot(dfWeekDay$IntervalLevelWeekDays, dfWeekDay$avgStepWeekDay, type = "l", main = "Comparison of the Average Number of Steps\n between Weekdays and the Weekend", col="blue", xlab = "Steps Interval", ylab = "Average Number of Steps") #plot weekday data
 lines(dfWeekEnd$IntervalLevelWeekEnd, dfWeekEnd$avgStepWeekEnd, col = "red") #plot weekend data
 legend("topright", c("Weekday", "Weekend"), col = c("blue", "red"), lty = 1) # annotate legend
@@ -100,10 +100,9 @@ legend("topright", c("Weekday", "Weekend"), col = c("blue", "red"), lty = 1) # a
 library(grid)
 p1<- ggplot(dfWeekDay,aes(x=dfWeekDay$IntervalLevelWeekDays,y=dfWeekDay$avgStepWeekDay))+geom_line()
 p2<- ggplot(dfWeekEnd,aes(x=dfWeekEnd$IntervalLevelWeekEnd,y=dfWeekEnd$avgStepWeekEnd))+geom_line()
-
 pushViewport(viewport(layout = grid.layout(2, 1)))  
-print(p1,vp = viewport(layout.pos.row = 1, layout.pos.col = 1))     
-print(p2 ,vp = viewport(layout.pos.row = 2, layout.pos.col = 1))     
+print(p1+ggtitle("Weekday avarage"),vp = viewport(layout.pos.row = 1, layout.pos.col = 1))     
+print(p2+ggtitle("Weekend avarage"),vp = viewport(layout.pos.row = 2, layout.pos.col = 1))     
 
 ```
 
